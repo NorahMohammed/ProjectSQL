@@ -3,7 +3,7 @@ use store;
 create table counties (
 code varbinary(10) primary key  ,
 name varchar(20)unique not null ,
-continent_name varchar (20) unique
+continent_name varchar (20) unique not null
 );
 
 create table users (
