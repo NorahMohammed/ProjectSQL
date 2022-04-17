@@ -1,0 +1,51 @@
+create database store;
+use store;
+create table counties (
+code varbinary(10) primary key  ,
+name varchar(20)unique not null ,
+continent_name varchar (20) unique
+);
+
+create table users (
+id int primary key,
+full_name varchar(20) ,
+email varchar(20) unique,
+gender varchar(1) check (gender='M' or gender='F'),
+date_of_birth varchar(15),
+created_at datetime,
+country_code int,
+foreign key (country_code) references counties(code)
+);
+
+create table orders(
+id int primary key  ,
+user_id int  ,
+status varchar (6) check (status='start' or status='finish'),
+created_at datetime,
+foreign key (user_id) references users (id)
+);
+
+create table order_proucts(
+order_id int primary key ,
+product_id int,
+quantity int default 0,
+foreign key (order_id) references orders (id),
+foreign key (product_id) references products (id)
+);
+
+create table products(
+id int primary key,
+name varchar(10) not null,
+price int default 0 ,
+status varchar(10) check (status='valid' or status='expired') ,
+created_at datetime default current_timestamp
+);
+-- DML
+insert into counties values(33252 ,'UEA' , 'aisa');
+insert into users values(1 ,'suliman ','s@s.com','M','1994-01-18','2022-1-01-09',33252);
+insert into orders values(34567,456,'start','2022-02-23');
+insert into products values(2232,'va',100,'valid','2021-10-11');
+insert into order_proucts values(221,331,2);
+
+update countries set name ='UEA_' where code =33252;
+delete from products where id =2232;
